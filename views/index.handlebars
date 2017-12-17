@@ -1,0 +1,38 @@
+{{>header}}
+<section id="login" class="container main" hidden>
+	<div class="row">
+		<div class="col-md-6 offset-md-3">
+			<fieldset class="login">
+				<div class="clearfix">
+					<div class="col-sm-10 offset-sm-1">
+						<h1 class="text-center">Sign In</h1>
+						<br />
+						<div class="input-group">
+							<span class="input-group-addon" id="addon-username"><i class="fa fa-user-o" aria-hidden="true"></i></span>
+							<input class="form-control" type="text" name="username" aria-label="Username" aria-describedby="addon-username" placeholder="User ID" />
+						</div>
+						<div class="label-username" class="error" hidden><span class="label label-danger"><small>Enter Username</small></span></div>
+						<br />
+						<div class="input-group">
+							<span class="input-group-addon" id="addon-password"><i class="fa fa-key" aria-hidden="true"></i></span>
+							<input class="form-control" type="text" name="password" aria-label="Password" aria-describedby="addon-password" placeholder="Password" />
+						</div>
+						<div class="label-password" error" hidden><span class="label label-danger"><small>Enter Private Key</small></span></div>
+						<br />
+						<div class="input-group">
+							<button class="btn btn-primary" type="button" id="form-capture"><i class="fa fa-sign-in" aria-hidden="true"></i> Capture QR</button>
+						</div>
+						<br />
+						<div class="input-group text-center">
+							<button class="btn btn-primary" type="button" name="submit"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+	</div>
+	<div id="form-capture-preview" hidden>
+		<video class="preview"></video>
+	</div>
+</section>
+{{>footer}}

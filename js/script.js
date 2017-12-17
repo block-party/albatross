@@ -1,7 +1,19 @@
 var dime = function() {
+
 	$('.container.main').css({
 		minHeight: $(window).height() - $('header').outerHeight() - $('footer').outerHeight(),
 	});
+}
+
+var isLoggedIn = function() {
+
+	if(typeof($.cookie('username')) === 'undefined'
+		|| $.cookie('username') === ''
+		|| typeof($.cookie('password')) === 'undefined'
+		|| $.cookie('password') === '') {
+		return false;
+	}
+	return true;
 }
 
 $(function() {
@@ -10,8 +22,19 @@ $(function() {
 	$('footer').velocity({
 		opacity: 1,
 	}, 250);
-});
 
+	$('[name="logout"]').click(function(e) {
+		e.preventDefault();
+		$.removeCookie('username');
+		$.removeCookie('password');
+		window.location.href = '/';
+	});
+
+	$('[name="dashboard"]').click(function(e) {
+		e.preventDefault();
+		window.location.href = '/dashboard';
+	});
+});
 
 
 web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));

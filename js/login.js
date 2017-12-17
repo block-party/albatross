@@ -1,6 +1,7 @@
 
 var login = function() {
 
+	$('section.main').removeAttr('hidden');
 	$('#form-capture').click(function() {
 		$('#form-capture-preview').removeAttr('hidden');
 		let scanner = new Instascan.Scanner({
@@ -38,13 +39,18 @@ var login = function() {
 		if(error === false) {
 			$.cookie('username', $('#login [name="username"]').val());
 			$.cookie('password', $('#login [name="password"]').val());
-			window.location.href = 'dashboard.html';
+			window.location.href = '/dashboard';
 		}
 	});
 }
 
 $(function() {
+
 	if($('#login').length>0) {
-		login();
+		if(!isLoggedIn()) {
+			login();
+		} else {
+			window.location.href = '/dashboard';
+		}
 	}
 });
