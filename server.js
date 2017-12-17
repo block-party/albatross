@@ -46,6 +46,12 @@ app.get('/dashboard/:project/add',function(req, res) {
 	res.app.locals.albatross = JSON.stringify(res.app.locals.albatross);
 	res.render('add.handlebars');
 });
+app.get('/dashboard/:project/pay',function(req, res) {
+	res.app.locals = {albatross: {}, };
+	res.app.locals.albatross.project = req.params.project;
+	res.app.locals.albatross = JSON.stringify(res.app.locals.albatross);
+	res.render('pay.handlebars');
+});
 
 app.all('/testrpc', function(req, res) {
 	proxy.web(req, res, {target: 'http://localhost:8545' });

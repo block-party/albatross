@@ -1,4 +1,16 @@
 
+
+var pay = function() {
+
+	$('section.main').removeAttr('hidden');
+	$('#pay [name="dashboard"]').click(function(e) {
+		window.location.href = '/dashboard';
+	});
+	$('#pay [name="pay"]').click(function(e) {
+		console.log('pay');
+	});
+}
+
 var add = function() {
 
 	$('section.main').removeAttr('hidden');
@@ -59,7 +71,7 @@ var add = function() {
 var list = function() {
 
 	$('section.main').removeAttr('hidden');
-	$('.list-group .list-group-item').click(function(e) {
+	$('.list-group .list-group-item[data-value]').click(function(e) {
 		window.location.href = '/dashboard/'+$(this).attr('data-value');
 	});
 	$('#list [name="add"]').click(function(e) {
@@ -70,7 +82,7 @@ var list = function() {
 var addProject = function() {
 
 	$('section.main').removeAttr('hidden');
-	$('.list-group .list-group-item').click(function(e) {
+	$('.list-group .list-group-item[data-value]').click(function(e) {
 		window.location.href = '/dashboard/'+$(this).attr('data-value');
 	});
 	$('#add-project [name="dashboard"]').click(function(e) {
@@ -81,11 +93,14 @@ var addProject = function() {
 var dashboard = function() {
 
 	$('section.main').removeAttr('hidden');
-	$('.list-group .list-group-item').click(function(e) {
+	$('.list-group .list-group-item[data-value]').click(function(e) {
 		window.location.href = '/dashboard/'+$(this).attr('data-value');
 	});
 	$('#dashboard [name="add"]').click(function(e) {
 		window.location.href = '/dashboard/add';
+	});
+	$('#dashboard [name="payment"]').click(function(e) {
+		window.location.href = '/dashboard/'+$(this).attr('data-value')+'/pay';
 	});
 }
 
@@ -107,6 +122,9 @@ $(function() {
 			list();
 			break;
 		case $('#add').length:
+			add();
+			break;
+		case $('#pay').length:
 			add();
 			break;
 	}
