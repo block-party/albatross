@@ -18,7 +18,7 @@ var login = function() {
 			swal('Oops...', 'No camera found', 'error',);
 		}
 		}).catch(function(e) {
-			console.error(e);
+			$('#form-capture-preview').attr('hidden', true);
 		});
 	});
 	$('#login [name="submit"]').click(function(e) {

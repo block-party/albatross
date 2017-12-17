@@ -2,14 +2,11 @@ var express = require('express');
 var https = require('https');
 var app = express();
 var path = require('path');
-var engines = require('consolidate');
 var fs = require('fs');
 
 var httpProxy = require('http-proxy');
 var proxy = httpProxy.createProxyServer({});
 
-//app.set('view engine', 'html');
-//app.engine('html', engines.mustache);
 var exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({
 	layoutDir: __dirname+'/views',
@@ -28,22 +25,36 @@ app.use('/css', express.static(path.join(__dirname+'/css')));
 app.use('/js', express.static(path.join(__dirname+'/js')));
 app.use('/img', express.static(path.join(__dirname+'/img')));
 
-var data = {
-}
-
 app.get('/',function(req, res) {
-	res.render('index.handlebars', data);
+	res.render('index.handlebars');
 });
-app.get('/dashboard/',function(req, res) {
-	res.render('dashboard.handlebars', data);
+app.get('/dashboard',function(req, res) {
+	res.render('dashboard.handlebars');
 });
-
+app.get('/dashboard/add',function(req, res) {
+	res.render('add-project.handlebars');
+});
 app.get('/dashboard/:project',function(req, res) {
-	res.render('list.handlebars', data);
+	res.app.locals = {albatross: {}, };
+	res.app.locals.albatross.project = req.params.project;
+	res.app.locals.albatross = JSON.stringify(res.app.locals.albatross);
+	res.render('list.handlebars');
+});
+app.get('/dashboard/:project/add',function(req, res) {
+	res.app.locals = {albatross: {}, };
+	res.app.locals.albatross.project = req.params.project;
+	res.app.locals.albatross = JSON.stringify(res.app.locals.albatross);
+	res.render('add.handlebars');
 });
 
 app.all('/testrpc', function(req, res) {
 	proxy.web(req, res, {target: 'http://localhost:8545' });
+});
+proxy.on('error', function (err, req, res) {
+	res.writeHead(500, {
+		'Content-Type': 'text/plain'
+	});
+	res.end('Unavailable.');
 });
 
 var privateKey = fs.readFileSync(__dirname+'/ssl/local.rb.io.key');
