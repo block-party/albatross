@@ -8,7 +8,8 @@ code = fs.readFileSync('Workercontract.sol').toString()
 compiledCode = solc.compile(code)
 
 abi = JSON.parse(compiledCode.contracts[':UserContract'].interface)
-var Employmentcontract = web3.eth.contract(abi)
+var Employmentcontract = web3.eth.contract(abi);
+
 
 /*
 
