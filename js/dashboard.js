@@ -139,6 +139,17 @@ var addProject = function() {
 	$('#add-project [name="dashboard"]').click(function(e) {
 		window.location.href = '/dashboard';
 	});
+	$('#add-project [name="date-start"], #add-project [name="date-end"]').datetimepicker({
+		timepicker: false,
+		format: 'd/m/Y',
+		formatDate: 'Y/m/d',
+	});
+	$('#add-project [name="time-start"], #add-project [name="time-end"]').datetimepicker({
+		timepicker: true,
+		format: 'H:i',
+		step: 5,
+		datepicker: false,
+	});
 }
 
 var dashboard = function() {
