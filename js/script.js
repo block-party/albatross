@@ -25,8 +25,8 @@ $(function() {
 
 	$('[name="logout"]').click(function(e) {
 		e.preventDefault();
-		$.removeCookie('username');
-		$.removeCookie('password');
+		$.removeCookie('username', {path: '/' });
+		$.removeCookie('password', {path: '/' });
 		window.location.href = '/';
 	});
 

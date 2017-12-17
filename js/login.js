@@ -37,8 +37,8 @@ var login = function() {
 			$('#login .label-password').attr('hidden', true);
 		}
 		if(error === false) {
-			$.cookie('username', $('#login [name="username"]').val());
-			$.cookie('password', $('#login [name="password"]').val());
+			$.cookie('username', $('#login [name="username"]').val(), {path: '/' });
+			$.cookie('password', $('#login [name="password"]').val(), {path: '/' });
 			window.location.href = '/dashboard';
 		}
 	});
