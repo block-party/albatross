@@ -21,7 +21,7 @@ library StringUtils {
             return 0;
     }
     /// @dev Compares two strings and returns true iff they are equal.
-    function equal(string _a, string _b) returns (bool) {
+    function equal(string _a, string _b) public returns (bool) {
         return compare(_a, _b) == 0;
     }
     /// @dev Finds the index of the first occurrence of _needle in _haystack
