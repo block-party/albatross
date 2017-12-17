@@ -1,7 +1,12 @@
 var express = require('express');
+var https = require('https');
 var app = express();
 var path = require('path');
 var engines = require('consolidate');
+var fs = require('fs');
+
+var httpProxy = require('http-proxy');
+var proxy = httpProxy.createProxyServer({});
 
 //app.set('view engine', 'html');
 //app.engine('html', engines.mustache);
@@ -19,23 +24,33 @@ app.get('/*',function(req, res, next){
 	next();
 });
 
-app.use('/css', express.static(path.join(__dirname + '/css')));
-app.use('/js', express.static(path.join(__dirname + '/js')));
-app.use('/img', express.static(path.join(__dirname + '/img')));
+app.use('/css', express.static(path.join(__dirname+'/css')));
+app.use('/js', express.static(path.join(__dirname+'/js')));
+app.use('/img', express.static(path.join(__dirname+'/img')));
 
 var data = {
 }
 
-app.get('/',function(req, res){
+app.get('/',function(req, res) {
 	res.render('index.handlebars', data);
 });
-app.get('/dashboard/',function(req, res){
+app.get('/dashboard/',function(req, res) {
 	res.render('dashboard.handlebars', data);
 });
 
-app.get('/dashboard/:project',function(req, res){
+app.get('/dashboard/:project',function(req, res) {
 	res.render('list.handlebars', data);
 });
 
-app.listen(80);
-console.log('Running BlockParty Project Albatross at Port 80');
+app.all('/testrpc', function(req, res) {
+	proxy.web(req, res, {target: 'http://localhost:8545' });
+});
+
+var privateKey = fs.readFileSync(__dirname+'/ssl/local.rb.io.key');
+var certificate = fs.readFileSync(__dirname+'/ssl/local.rb.io.crt');
+
+https.createServer({
+    key: privateKey,
+    cert: certificate
+}, app).listen(443);
+console.log('Running BlockParty Project Albatross at Port 443');
