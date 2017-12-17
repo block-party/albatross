@@ -1,13 +1,35 @@
 {{>header}}
-<section id="dashboard" class="container main" hidden>
+<section id="dashboard" class="container main" hidden data-auth-required="true">
 	
 	<div class="row">
 		<div class="col-md-6 offset-md-3">
+			<h2>Work Profile</h2>
+			<br />
+			<ul class="list-group">
+				<li class="list-group-item" data-value="project-8">
+					<div>
+						<h3>Project 8</h3>
+						<div><p>Project 8 is a project on project x</p></div>
+					</div>
+				</li>
+			</ul>
+			<br />
+		</div>
+		<div class="col-md-6 offset-md-3">
+			<h2>Projects</h2>
+			<br />
+			<div class="row">
+				<div class="col-12 text-right">
+					<button class="btn btn-primary" type="button" name="add"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
+				</div>
+			</div>
+			<br />
 			<ul class="list-group">
 				<li class="list-group-item" data-value="project-1">Project 1</li>
 				<li class="list-group-item" data-value="project-2">Project 2</li>
 				<li class="list-group-item" data-value="project-3">Project 3</li>
 			</ul>
+			<br />
 		</div>
 	</div>
 
