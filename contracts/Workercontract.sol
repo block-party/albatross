@@ -1,21 +1,33 @@
 pragma solidity ^0.4.18;
 import "stringUtils.sol";
 
-contract WorkerContract {
+contract UserContract
+ {
 
-   struct User{
-        string iris;
+   string test;    
+   struct User
+   {
         string name;
-        uint dateOfBirth;
-        uint social;
-        uint status;
-        string project;
+        string iris;
+        string fingerprint;
+        bytes32[] project;
+        uint verified;
 
     }
+    struct Projects
+    {
+        
+    }
+    function UserContract()
+    {
+       test = "asshole albert ross";
+    }
     
-    uint constant active = 1;
-    uint constant pending = 2;
-    uint constant deleted = 3;
+    function getTest() constant public returns (string t)
+    {
+        return test;
+    }
+    
     mapping (uint => User) workers;
     uint public count = 0;
     
@@ -24,9 +36,6 @@ contract WorkerContract {
     
         iris_ = workers[index].iris;
         name = workers[index].name;
-        dateOfBirth = workers[index].dateOfBirth;
-        social = workers[index].social;
-        status = workers[index].status;
 
     }
     
@@ -37,9 +46,6 @@ contract WorkerContract {
             if (StringUtils.equal(iris,workers[i].iris)) {
                 iris_ret = workers[i].iris;
                 name = workers[i].name;
-                dateOfBirth = workers[i].dateOfBirth;
-                social = workers[i].social;
-                status = workers[i].status;
                 return;
             }
     
@@ -51,9 +57,7 @@ contract WorkerContract {
         workers[index].name = name;
     
     }
-    function updateCustomerStatus(uint index, uint status) {
-    if (index > count) throw;
-        workers[index].status = status;
-    }
+    
+    
     
 }
