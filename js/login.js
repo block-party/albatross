@@ -20,6 +20,27 @@ var login = function() {
 			console.error(e);
 		});
 	});
+	$('#login [name="submit"]').click(function(e) {
+		e.preventDefault();
+		var error = false;
+		if($('#login [name="username"]').val() == '') {
+			$('#login .label-username').removeAttr('hidden');
+			error = true;
+		} else {
+			$('#login .label-username').attr('hidden', true);
+		}
+		if($('#login [name="password"]').val() == '') {
+			$('#login .label-password').removeAttr('hidden');
+			error = true;
+		} else {
+			$('#login .label-password').attr('hidden', true);
+		}
+		if(error === false) {
+			$.cookie('username', $('#login [name="username"]').val());
+			$.cookie('password', $('#login [name="password"]').val());
+			window.location.href = 'dashboard.html';
+		}
+	});
 }
 
 $(function() {
