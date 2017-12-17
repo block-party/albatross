@@ -1,0 +1,43 @@
+{{>header}}
+<section id="payment" class="container main" hidden data-auth-required="true">
+	
+	<div class="row">
+		<div class="col-md-6 offset-md-3">
+			<h1 class="text-center">Pay {{{user}}}</h1>
+			<br />
+			<div class="row">
+				<div class="col-6">
+					<button class="btn btn-primary" type="button" name="payments"><i class="fa fa-arrow-left" aria-hidden="true"></i> Payments</button>
+				</div>
+			</div>
+			<br />
+			<ul class="list-group">
+				<li class="list-group-item hover-disabled">
+					<h4>Agreement</h4>
+					<div>
+						<p>Payee agrees he received the payment from the payer. Now get over it. Sed cu molestie consequat signiferumque, quot adipisci consetetur nam ex, nam at alia electram. Suas detraxit ei his, per graeco scriptorem id. Id purto labore theophrastus mea, et officiis tincidunt sit, ea percipit signiferumque duo. Vix ut soleat labitur, eu pro insolens pericula.</p>
+					</div>
+					<br />
+					<div class="input-group">
+						<span class="input-group-addon" id="addon-fingerprint"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i></span>
+						<input class="form-control" type="text" name="fingerprint" aria-label="Fingerprint" aria-describedby="addon-fingerprint" placeholder="Fingerprint" />
+						<input type="file" hidden name="file-fingerprint" />
+					</div>
+					<div class="input-or">or</div>
+					<div class="input-group">
+						<span class="input-group-addon" id="addon-iris"><i class="fa fa-eye" aria-hidden="true"></i></span>
+						<input class="form-control" type="text" name="iris" aria-label="iris" aria-describedby="addon-iris" placeholder="Iris" />
+						<input type="file" hidden name="file-iris" />
+					</div>
+					<div class="label-verify" hidden><span class="text-danger">Enter Fingerprint or Iris</span></div>
+					<br />
+					<div class="text-right">
+						<button class="btn btn-primary" type="button" name="pay" data-value="worker-1"><i class="fa fa-credit-card" aria-hidden="true"></i> Pay</button>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<br />
+</section>
+{{>footer}}

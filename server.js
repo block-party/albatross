@@ -36,21 +36,33 @@ app.get('/dashboard/add',function(req, res) {
 });
 app.get('/dashboard/:project',function(req, res) {
 	res.app.locals = {albatross: {}, };
+	res.app.locals.project = req.params.project;
 	res.app.locals.albatross.project = req.params.project;
 	res.app.locals.albatross = JSON.stringify(res.app.locals.albatross);
 	res.render('list.handlebars');
 });
 app.get('/dashboard/:project/add',function(req, res) {
 	res.app.locals = {albatross: {}, };
+	res.app.locals.project = req.params.project;
 	res.app.locals.albatross.project = req.params.project;
 	res.app.locals.albatross = JSON.stringify(res.app.locals.albatross);
 	res.render('add.handlebars');
 });
 app.get('/dashboard/:project/pay',function(req, res) {
 	res.app.locals = {albatross: {}, };
+	res.app.locals.project = req.params.project;
 	res.app.locals.albatross.project = req.params.project;
 	res.app.locals.albatross = JSON.stringify(res.app.locals.albatross);
 	res.render('pay.handlebars');
+});
+app.get('/dashboard/:project/pay/:user',function(req, res) {
+	res.app.locals = {albatross: {}, };
+	res.app.locals.project = req.params.project;
+	res.app.locals.user = req.params.user;
+	res.app.locals.albatross.project = req.params.project;
+	res.app.locals.albatross.user = req.params.user;
+	res.app.locals.albatross = JSON.stringify(res.app.locals.albatross);
+	res.render('payment.handlebars');
 });
 
 app.all('/testrpc', function(req, res) {

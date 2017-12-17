@@ -1,4 +1,55 @@
 
+var payment = function() {
+
+	$('section.main').removeAttr('hidden');
+	$('#payment [name="payments"]').click(function(e) {
+		window.location.href = '/dashboard/'+_albatross.project+'/pay';
+	});
+	$('#payment [name="file-fingerprint"]').change(function(e) {
+		if($(this).prop('files').length === 0) {
+			$('#payment [name="fingerprint"]').val('');
+		} else {
+			var file = $(this).prop('files')[0];
+			var reader = new FileReader();
+			reader.onload = function() {
+				var binary = event.target.result;
+				var md5 = CryptoJS.MD5(binary).toString();
+				$('#payment [name="fingerprint"]').val(md5);
+			}
+			reader.readAsBinaryString(file);
+		}
+	});
+	$('#payment [name="file-iris"]').change(function(e) {
+		if($(this).prop('files').length === 0) {
+			$('#payment [name="iris"]').val('');
+		} else {
+			var file = $(this).prop('files')[0];
+			var reader = new FileReader();
+			reader.onload = function() {
+				var binary = event.target.result;
+				var md5 = CryptoJS.MD5(binary).toString();
+				$('#payment [name="iris"]').val(md5);
+			}
+			reader.readAsBinaryString(file);
+		}
+	});
+	$('#payment [name="fingerprint"]').focus(function(e) {
+		$(this).blur();
+		$('#payment [name="file-fingerprint"]').click();
+	});
+	$('#payment [name="iris"]').focus(function(e) {
+		$(this).blur();
+		$('#payment [name="file-iris"]').click();
+	});
+	$('#payment [name="pay"]').click(function(e) {
+		e.preventDefault();
+		if($('#payment [name="fingerprint"]').val() == '' && $('#payment [name="iris"]').val() == '') {
+			$('#payment .label-verify').removeAttr('hidden');
+		} else {
+			$('#payment .label-verify').attr('hidden' ,true);
+		}
+	});
+}
 
 var pay = function() {
 
@@ -7,7 +58,7 @@ var pay = function() {
 		window.location.href = '/dashboard';
 	});
 	$('#pay [name="pay"]').click(function(e) {
-		console.log('pay');
+		window.location.href = '/dashboard/'+_albatross.project+'/pay/'+$(this).attr('data-value');
 	});
 }
 
@@ -125,7 +176,10 @@ $(function() {
 			add();
 			break;
 		case $('#pay').length:
-			add();
+			pay();
+			break;
+		case $('#payment').length:
+			payment();
 			break;
 	}
 });
