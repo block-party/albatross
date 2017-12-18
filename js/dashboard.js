@@ -47,6 +47,15 @@ var payment = function() {
 			$('#payment .label-verify').removeAttr('hidden');
 		} else {
 			$('#payment .label-verify').attr('hidden' ,true);
+			swal({
+				title: 'Success',
+				text: 'Payment Success',
+				type: 'success',
+			}).then((result) => {
+				if(result.value) {
+					window.location.href = '/';
+				}
+			});
 		}
 	});
 }
@@ -106,15 +115,30 @@ var add = function() {
 	});
 	$('#add [name="add"]').click(function(e) {
 		e.preventDefault();
+		var status = true;
 		if($('#add [name="username"]').val() == '') {
 			$('#add .label-username').removeAttr('hidden');
+			status = false;
 		} else {
 			$('#add .label-username').attr('hidden' ,true);
 		}
 		if($('#add [name="fingerprint"]').val() == '' && $('#add [name="iris"]').val() == '') {
 			$('#add .label-verify').removeAttr('hidden');
+			status = false;
 		} else {
 			$('#add .label-verify').attr('hidden' ,true);
+		}
+		if(status) {
+			var date = new Date();
+			swal({
+				title: 'Success',
+				text: 'Agreement signed at '+date.getHours()+':'+date.getMinutes()+' '+date.getDate()+':'+date.getMonth()+':'+date.getFullYear()+'\nWorker added to project.',
+				type: 'success',
+			}).then((result) => {
+				if(result.value) {
+					window.location.href = '/';
+				}
+			});
 		}
 	});
 }
@@ -168,9 +192,17 @@ var dashboard = function() {
 
 $(function() {
 
-	if($('seciont.main').attr('data-auth-required') === "true") {
-		if(!isLoggedIn()) {
-			window.location.href = '/';
+	if($('section.main').attr('data-auth-required') === "true") {
+		if(!loginUser()) {
+			swal({
+				title: 'Oops...',
+				text: 'Login failed',
+				type: 'error',
+			}).then((result) => {
+				if(result.value) {
+					window.location.href = '/';
+				}
+			});
 		}
 	}
 	switch(1) {

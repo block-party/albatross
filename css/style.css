@@ -3,6 +3,18 @@ html, body {
 	font-size: 14px;
 	font-weight: 400;
 }
+header {
+	background-color: black;
+	font-size: 16px;
+	padding: 6px 0;
+	color: white;
+}
+header a {
+	color: inherit;
+}
+header a:hover {
+	text-decoration: none;
+}
 header .logo {
 	padding: 10px;
 	max-width: 96px;
@@ -20,6 +32,9 @@ textarea.form-control {
 select.form-control {
 	border-radius: 0;
 	border: 1px solid #e3e3e3 !important;
+}
+.card {
+	height: 64px;
 }
 .input-or {
 	text-align: center;

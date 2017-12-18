@@ -1,3 +1,34 @@
+
+// var web3 = new Web3(new Web3.providers.HttpProvider('/testrpc'));
+// var abi = [{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"users","outputs":[{"name":"name","type":"string"},{"name":"userid","type":"uint256"},{"name":"password","type":"string"},{"name":"iris","type":"string"},{"name":"fingerprint","type":"string"},{"name":"verified","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"userid","type":"uint256"},{"name":"password","type":"string"}],"name":"loginUser","outputs":[{"name":"s","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getUserCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"userid","type":"uint256"}],"name":"getUserById","outputs":[{"name":"_i","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"index","type":"uint256"}],"name":"getUser","outputs":[{"name":"iris_","type":"string"},{"name":"name","type":"string"},{"name":"dateOfBirth","type":"uint256"},{"name":"social","type":"uint256"},{"name":"status","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"name","type":"string"},{"name":"userid","type":"uint256"},{"name":"iris","type":"string"},{"name":"fingerprint","type":"string"},{"name":"verified","type":"uint256"}],"name":"createUser","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"updateUserproject1","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"updateUserproject2","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}];
+// var AlbatrossContract = web3.eth.contract(abi);
+// var contractInstance = AlbatrossContract.at('0xdc51e96e97464d3cfcfd500e12760ea24c920489');
+
+function loginUser() {
+	var userID = $.cookie('username');
+	if(typeof(userID) === 'undefined') {
+		return false;
+	}
+	if(userID == '') {
+		$.removeCookie('username', {path: '/' });
+		$.removeCookie('password', {path: '/' });
+		return false;
+	}
+	var userPassword = $.cookie('password');
+	if(typeof(userPassword) === 'undefined') {
+		return false;
+	}
+	//var status = contractInstance.loginUser(userID, userPassword, {from: web3.eth.accounts[0]});
+	status = true;
+	if(status === false) {
+		$.removeCookie('username', {path: '/' });
+		$.removeCookie('password', {path: '/' });
+		return false;
+	} else {
+		return true;
+	}
+}
+
 var dime = function() {
 
 	$('.container.main').css({
@@ -17,6 +48,7 @@ var isLoggedIn = function() {
 }
 
 $(function() {
+
 	dime();
 	$(window).resize(dime);
 	$('footer').velocity({
@@ -37,31 +69,5 @@ $(function() {
 
 	if(isLoggedIn()) {
 		$('.container-logout').removeAttr('hidden');
-	}
-});
-
-
-//web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-web3 = new Web3(new Web3.providers.HttpProvider('/testrpc'));
-abi = JSON.parse('[{"constant":false,"inputs":[{"name":"candidate","type":"bytes32"}],"name":"totalVotesFor","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"candidate","type":"bytes32"}],"name":"validCandidate","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"bytes32"}],"name":"votesReceived","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"x","type":"bytes32"}],"name":"bytes32ToString","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"candidateList","outputs":[{"name":"","type":"bytes32"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"candidate","type":"bytes32"}],"name":"voteForCandidate","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"contractOwner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"inputs":[{"name":"candidateNames","type":"bytes32[]"}],"payable":false,"type":"constructor"}]')
-VotingContract = web3.eth.contract(abi);
-// In your nodejs console, execute contractInstance.address to get the address at which the contract is deployed and change the line below to use your deployed address
-contractInstance = VotingContract.at('0x265d0037461c72d01605d78f75b4aca74fe1dfd2');
-candidates = {"Rama": "candidate-1", "Nick": "candidate-2", "Jose": "candidate-3"}
-
-function voteForCandidate() {
-	candidateName = $("#candidate").val();
-	contractInstance.voteForCandidate(candidateName, {from: web3.eth.accounts[0]}, function() {
-		let div_id = candidates[candidateName];
-		$("#" + div_id).html(contractInstance.totalVotesFor.call(candidateName).toString());
-	});
-}
-
-$(document).ready(function() {
-	candidateNames = Object.keys(candidates);
-	for (var i = 0; i < candidateNames.length; i++) {
-		let name = candidateNames[i];
-		let val = contractInstance.totalVotesFor.call(name).toString()
-		$("#" + candidates[name]).html(val);
 	}
 });

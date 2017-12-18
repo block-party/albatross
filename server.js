@@ -26,16 +26,22 @@ app.use('/js', express.static(path.join(__dirname+'/js')));
 app.use('/img', express.static(path.join(__dirname+'/img')));
 
 app.get('/',function(req, res) {
+	res.app.locals = {albatross: {nonce: 0}, };
+	res.app.locals.albatross = JSON.stringify(res.app.locals.albatross);
 	res.render('index.handlebars');
 });
 app.get('/dashboard',function(req, res) {
+	res.app.locals = {albatross: {nonce: 0}, };
+	res.app.locals.albatross = JSON.stringify(res.app.locals.albatross);
 	res.render('dashboard.handlebars');
 });
 app.get('/dashboard/add',function(req, res) {
+	res.app.locals = {albatross: {nonce: 0}, };
+	res.app.locals.albatross = JSON.stringify(res.app.locals.albatross);
 	res.render('add-project.handlebars');
 });
 app.get('/dashboard/:project',function(req, res) {
-	res.app.locals = {albatross: {}, };
+	res.app.locals = {albatross: {nonce: 0}, };
 	res.app.locals.project = req.params.project;
 	res.app.locals.albatross.project = req.params.project;
 	res.app.locals.albatross = JSON.stringify(res.app.locals.albatross);
@@ -66,7 +72,7 @@ app.get('/dashboard/:project/pay/:user',function(req, res) {
 });
 
 app.all('/testrpc', function(req, res) {
-	proxy.web(req, res, {target: 'http://localhost:8545' });
+	proxy.web(req, res, {target: 'http://192.168.1.27:8545' });
 });
 proxy.on('error', function (err, req, res) {
 	res.writeHead(500, {

@@ -24,6 +24,9 @@ var login = function() {
 	$('#login [name="submit"]').click(function(e) {
 		e.preventDefault();
 		var error = false;
+		userID = $('#login [name="username"]').val();
+		userID = userID.replace(/[^\d]+/g, '');
+		$('#login [name="username"]').val(userID);
 		if($('#login [name="username"]').val() == '') {
 			$('#login .label-username').removeAttr('hidden');
 			error = true;

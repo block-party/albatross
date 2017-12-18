@@ -1,7 +1,7 @@
 Web3 = require('web3')
 solc = require('solc')
 fs = require('fs')
-web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+web3 = new Web3(new Web3.providers.HttpProvider("http://192.168.1.27:8545"));
 web3.eth.defaultAccount = web3.eth.accounts[0];
 
 /*
@@ -52,33 +52,40 @@ var Employmentcontract = web3.eth.contract([
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [
-			{
-				"name": "name",
-				"type": "string"
-			},
 			{
 				"name": "userid",
 				"type": "uint256"
 			},
 			{
-				"name": "iris",
+				"name": "password",
 				"type": "string"
-			},
+			}
+		],
+		"name": "loginUser",
+		"outputs": [
 			{
-				"name": "fingerprint",
-				"type": "string"
-			},
+				"name": "s",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getUserCount",
+		"outputs": [
 			{
-				"name": "verified",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "createUser",
-		"outputs": [],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -98,15 +105,6 @@ var Employmentcontract = web3.eth.contract([
 		],
 		"payable": false,
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "updateUserproject1",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -145,40 +143,42 @@ var Employmentcontract = web3.eth.contract([
 		"type": "function"
 	},
 	{
-		"constant": true,
+		"constant": false,
 		"inputs": [
+			{
+				"name": "name",
+				"type": "string"
+			},
 			{
 				"name": "userid",
 				"type": "uint256"
 			},
 			{
-				"name": "password",
+				"name": "iris",
 				"type": "string"
-			}
-		],
-		"name": "loginUser",
-		"outputs": [
+			},
 			{
-				"name": "s",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getUserCount",
-		"outputs": [
+				"name": "fingerprint",
+				"type": "string"
+			},
 			{
-				"name": "",
+				"name": "verified",
 				"type": "uint256"
 			}
 		],
+		"name": "createUser",
+		"outputs": [],
 		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "updateUserproject1",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -194,8 +194,11 @@ var Employmentcontract = web3.eth.contract([
 
 
 empc = Employmentcontract.at('0xdc51e96e97464d3cfcfd500e12760ea24c920489')
-//empc.createUser("joseph",3,"isris","fig",0,{from:web3.eth.accounts[0], gas: 500000})
-console.log(empc.loginUser(3,"blaj"))
+// empc.createUser("john3", 3,"isris","fig",0,{from:web3.eth.accounts[0], gas: 500000})
+// empc.createUser("john4", 4,"isris","fig",0,{from:web3.eth.accounts[0], gas: 500000})
+// empc.createUser("john5", 5,"isris","fig",0,{from:web3.eth.accounts[0], gas: 500000})
+// empc.createUser("john6", 6,"isris","fig",0,{from:web3.eth.accounts[0], gas: 500000})
+console.log(empc.loginUser(3, "blaj"))
 //empc.createWorker("soseph jtephan","iris2","finger1",0)
 
 /*	
