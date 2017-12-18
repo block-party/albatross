@@ -16,42 +16,22 @@ var Employmentcontract = web3.eth.contract([
 		"constant": true,
 		"inputs": [
 			{
-				"name": "iris",
-				"type": "string"
+				"name": "",
+				"type": "uint256"
 			}
 		],
-		"name": "getCustomerById",
+		"name": "users",
 		"outputs": [
 			{
-				"name": "iris_ret",
-				"type": "string"
-			},
-			{
 				"name": "name",
 				"type": "string"
 			},
 			{
-				"name": "dateOfBirth",
+				"name": "userid",
 				"type": "uint256"
 			},
 			{
-				"name": "social",
-				"type": "uint256"
-			},
-			{
-				"name": "status",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "name",
+				"name": "password",
 				"type": "string"
 			},
 			{
@@ -67,22 +47,6 @@ var Employmentcontract = web3.eth.contract([
 				"type": "uint256"
 			}
 		],
-		"name": "createWorker",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getWorkerCount",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
@@ -91,11 +55,55 @@ var Employmentcontract = web3.eth.contract([
 		"constant": false,
 		"inputs": [
 			{
-				"name": "index",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"name": "userid",
+				"type": "uint256"
+			},
+			{
+				"name": "iris",
+				"type": "string"
+			},
+			{
+				"name": "fingerprint",
+				"type": "string"
+			},
+			{
+				"name": "verified",
 				"type": "uint256"
 			}
 		],
-		"name": "updateWorker",
+		"name": "createUser",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "userid",
+				"type": "uint256"
+			}
+		],
+		"name": "getUserById",
+		"outputs": [
+			{
+				"name": "_i",
+				"type": "int256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "updateUserproject1",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -109,7 +117,7 @@ var Employmentcontract = web3.eth.contract([
 				"type": "uint256"
 			}
 		],
-		"name": "getWorker",
+		"name": "getUser",
 		"outputs": [
 			{
 				"name": "iris_",
@@ -140,39 +148,54 @@ var Employmentcontract = web3.eth.contract([
 		"constant": true,
 		"inputs": [
 			{
-				"name": "",
+				"name": "userid",
 				"type": "uint256"
+			},
+			{
+				"name": "password",
+				"type": "string"
 			}
 		],
-		"name": "workers",
+		"name": "loginUser",
 		"outputs": [
 			{
-				"name": "name",
-				"type": "string"
-			},
+				"name": "s",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getUserCount",
+		"outputs": [
 			{
-				"name": "iris",
-				"type": "string"
-			},
-			{
-				"name": "fingerprint",
-				"type": "string"
-			},
-			{
-				"name": "verified",
+				"name": "",
 				"type": "uint256"
 			}
 		],
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "updateUserproject2",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
 	}
 ]);
 
 
-empc = Employmentcontract.at('0x10ac4e34ce81e80fd5543afd35b078392b795a86')
-//empc.createWorker("chris","isris","fig",0,{from:web3.eth.accounts[0], gas: 500000})
-console.log(empc.getWorkerCount())
+empc = Employmentcontract.at('0xdc51e96e97464d3cfcfd500e12760ea24c920489')
+//empc.createUser("joseph",3,"isris","fig",0,{from:web3.eth.accounts[0], gas: 500000})
+console.log(empc.loginUser(5,"blaj"))
 //empc.createWorker("soseph jtephan","iris2","finger1",0)
 
 /*	
