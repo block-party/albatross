@@ -1,42 +1,45 @@
 pragma solidity ^0.4.18;
-import "stringUtils.sol";
-contract UserContract {
 
- string test;
-
-    
+contract UserContract 
+{
    struct User
    {
         string name;
         string iris;
         string fingerprint;
-        bytes32[] project;
         uint verified;
 
     }
-    function UserContract() 
-    {
-       test = "asshole albert ross";
-    }
+   User[] public workers;
     
-    function getTest() constant  returns (string t)
-    {
-        return test;
+    function createWorker (string name, string iris, string fingerprint,uint verified) public
+    {   
+        workers.length++;
+        workers[workers.length-1].name = name;
+        workers[workers.length-1].iris = iris;
+        workers[workers.length-1].fingerprint = fingerprint;
+        workers[workers.length-1].verified = verified;
+            
     }
+   
     
-    mapping (uint => User) workers;
-    uint public count = 0;
+    function getWorkerCount() public constant returns (uint)
+    {
+        return workers.length;
+    }
     
     function getWorker(uint index)  constant returns (string iris_, string name, uint dateOfBirth, uint social, uint status)
     {
     
         iris_ = workers[index].iris;
         name = workers[index].name;
+        
 
     }
-     function getCustomerById(string iris)  constant returns (string iris_ret, string name, uint dateOfBirth, uint social, uint status)
+    
+    function getCustomerById(string iris)  constant returns (string iris_ret, string name, uint dateOfBirth, uint social, uint status)
     {
-        for (var i=0; i<count; i++)
+        for (var i=0; i<workers.length; i++)
         {
             /*
             if (StringUtils.equal(iris,workers[i].iris)) {
@@ -49,9 +52,8 @@ contract UserContract {
         }
 
     }
-   function updateWorker(uint index, string name) {
-            if (index > count) throw;
-        workers[index].name = name;
+   function updateWorker(uint index) {
+            
     
     }
    

@@ -4,168 +4,17 @@ fs = require('fs')
 web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 web3.eth.defaultAccount = web3.eth.accounts[0];
 
-code = fs.readFileSync('Workercontract.sol').toString()
+
+code = fs.readFileSync('Workercontract.sol').toString();
+
+
 compiledCode = solc.compile(code)
-console.log(web3.eth.gasPrice)
 
-//abi = JSON.parse(compiledCode.contracts[':UserContract'].interface)
-var Employmentcontract = web3.eth.contract([
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "index",
-				"type": "uint256"
-			}
-		],
-		"name": "getWorker",
-		"outputs": [
-			{
-				"name": "iris_",
-				"type": "string"
-			},
-			{
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"name": "dateOfBirth",
-				"type": "uint256"
-			},
-			{
-				"name": "social",
-				"type": "uint256"
-			},
-			{
-				"name": "status",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getTest",
-		"outputs": [
-			{
-				"name": "t",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "iris",
-				"type": "string"
-			}
-		],
-		"name": "getCustomerById",
-		"outputs": [
-			{
-				"name": "iris_ret",
-				"type": "string"
-			},
-			{
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"name": "dateOfBirth",
-				"type": "uint256"
-			},
-			{
-				"name": "social",
-				"type": "uint256"
-			},
-			{
-				"name": "status",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "count",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"name": "iris",
-				"type": "string"
-			},
-			{
-				"name": "fingerprint",
-				"type": "string"
-			},
-			{
-				"name": "verified",
-				"type": "uint256"
-			}
-		],
-		"name": "createWorker",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "index",
-				"type": "uint256"
-			},
-			{
-				"name": "name",
-				"type": "string"
-			}
-		],
-		"name": "updateWorker",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	}
-],{from:web3.eth.accounts[0],gasPrice:'900001'});
+abi = JSON.parse(compiledCode.contracts[':UserContract'].interface)
 
-empc = Employmentcontract.at('0x996461ec6240024ccddabc3cf0b64f62885cb900')
-empc.createWorker("soseph jtephan","iris2","finger1",0)
 
-/*	
-
-byteCode = compiledCode.contracts[':UserContract'].bytecode
+var Employmentcontract = web3.eth.contract(abi);
+byteCode = compiledCode.contracts[':UserContract'].bytecode;
 
 deployedContract = Employmentcontract.new([],{data: byteCode, from: web3.eth.accounts[0], gas: 3000000},function(e, contract)
 {
@@ -176,7 +25,7 @@ if(!e) {
   } else {
     console.log("Contract mined! Address: " + contract.address);
     empc = Employmentcontract.at(contract.address)
-    console.log(empc.getTest())
+   empc.createWorker("chris","isris","fig",0,{from:web3.eth.accounts[0], gas: 500000})
     
 
    
@@ -187,8 +36,10 @@ if(!e) {
 }     
 });
 
-
-
+/*
+empc = Employmentcontract.at()
+//empc.createWorker("chris","isris","fig",0,{from:web3.eth.accounts[0], gas: 500000})
+console.log(empc.getWorkerCount())
+//empc.createWorker("soseph jtephan","iris2","finger1",0)
 
 */
-
