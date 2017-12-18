@@ -2,6 +2,9 @@ pragma solidity ^0.4.18;
 
 contract UserContract 
 {
+   string test;
+   uint public count = 0;
+   mapping (uint => User) workers;
    struct User
    {
         string name;
@@ -10,36 +13,32 @@ contract UserContract
         uint verified;
 
     }
-   User[] public workers;
+    function UserContract()     
+    {
+       test = "asshole albert ross";
+    }
+    function getTest() constant  returns (string t)
+    {
+        return test;
+    }
     
-    function createWorker (string name, string iris, string fingerprint,uint verified) public
-    {   
-        workers.length++;
-        workers[workers.length-1].name = name;
-        workers[workers.length-1].iris = iris;
-        workers[workers.length-1].fingerprint = fingerprint;
-        workers[workers.length-1].verified = verified;
-            
+    function createWorker (string name, string iris, string fingerprint,uint verified)
+    {
+        workers[count] = User(name,iris,fingerprint,verified);
+        count ++;
+        
     }
    
-    
-    function getWorkerCount() public constant returns (uint)
-    {
-        return workers.length;
-    }
-    
     function getWorker(uint index)  constant returns (string iris_, string name, uint dateOfBirth, uint social, uint status)
     {
     
         iris_ = workers[index].iris;
         name = workers[index].name;
-        
 
     }
-    
-    function getCustomerById(string iris)  constant returns (string iris_ret, string name, uint dateOfBirth, uint social, uint status)
+     function getCustomerById(string iris)  constant returns (string iris_ret, string name, uint dateOfBirth, uint social, uint status)
     {
-        for (var i=0; i<workers.length; i++)
+        for (var i=0; i<count; i++)
         {
             /*
             if (StringUtils.equal(iris,workers[i].iris)) {
@@ -52,8 +51,9 @@ contract UserContract
         }
 
     }
-   function updateWorker(uint index) {
-            
+   function updateWorker(uint index, string name) {
+            if (index > count) throw;
+        workers[index].name = name;
     
     }
    

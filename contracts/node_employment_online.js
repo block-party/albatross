@@ -195,7 +195,7 @@ var Employmentcontract = web3.eth.contract([
 
 empc = Employmentcontract.at('0xdc51e96e97464d3cfcfd500e12760ea24c920489')
 //empc.createUser("joseph",3,"isris","fig",0,{from:web3.eth.accounts[0], gas: 500000})
-console.log(empc.loginUser(5,"blaj"))
+console.log(empc.loginUser(3,"blaj"))
 //empc.createWorker("soseph jtephan","iris2","finger1",0)
 
 /*	
@@ -204,7 +204,6 @@ byteCode = compiledCode.contracts[':UserContract'].bytecode
 
 deployedContract = Employmentcontract.new([],{data: byteCode, from: web3.eth.accounts[0], gas: 3000000},function(e, contract)
 {
-
 if(!e) {
   if(!contract.address) {
     //console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined...");
