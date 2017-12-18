@@ -2,60 +2,92 @@ pragma solidity ^0.4.18;
 
 contract UserContract 
 {
-   string test;
-   uint public count = 0;
-   mapping (uint => User) workers;
+    struct project
+    {
+        uint128 proj_id;
+        string proj_name;
+        string proj_desc;
+        uint32 star_date;
+        uint32 end_date;
+        uint32 start_time;
+        uint32 end_time;
+        uint32 wage;
+    }
    struct User
    {
         string name;
+        uint userid;
+        string password;
         string iris;
         string fingerprint;
         uint verified;
-
-    }
-    function UserContract()     
-    {
-       test = "asshole albert ross";
-    }
-    function getTest() constant  returns (string t)
-    {
-        return test;
+        project[] p1;
+        project[] p2;
     }
     
-    function createWorker (string name, string iris, string fingerprint,uint verified)
+    User[] public users;
+    
+    function createUser (string name, uint userid, string iris, string fingerprint,uint verified) public
+    {   
+        users.length++;
+        users[users.length-1].name = name;
+        users[users.length-1].userid = userid;
+        users[users.length-1].iris = iris;
+        users[users.length-1].fingerprint = fingerprint;
+        users[users.length-1].verified = verified;
+            
+    }
+    
+    function loginUser(uint userid,string password) constant public returns (bool s)
     {
-        workers[count] = User(name,iris,fingerprint,verified);
-        count ++;
+       int id = getUserById(userid);
+       
+        if (id == -1)
+            return false;
+        else
+            return true;
         
     }
-   
-    function getWorker(uint index)  constant returns (string iris_, string name, uint dateOfBirth, uint social, uint status)
+    function updateUserproject1()
+    {
+        
+    }
+    
+    function updateUserproject2()
+    {
+        
+    }
+    
+    function getUserCount() public constant returns (uint)
+    {
+        return users.length;
+    }
+    
+    function getUser(uint index)  constant returns (string iris_, string name, uint dateOfBirth, uint social, uint status)
     {
     
-        iris_ = workers[index].iris;
-        name = workers[index].name;
+        iris_ = users[index].iris;
+        name = users[index].name;
+        
 
     }
-     function getCustomerById(string iris)  constant returns (string iris_ret, string name, uint dateOfBirth, uint social, uint status)
+    
+    function getUserById(uint userid)  constant returns (int _i)
     {
-        for (var i=0; i<count; i++)
+        for (var i=0; i<users.length; i++)
         {
-            /*
-            if (StringUtils.equal(iris,workers[i].iris)) {
-                iris_ret = workers[i].iris;
-                name = workers[i].name;
-                return;
+            
+            if (users[i].userid == userid) {
+                return i;
             }
-            */
+            
     
         }
+        return (-1);
 
     }
-   function updateWorker(uint index, string name) {
-            if (index > count) throw;
-        workers[index].name = name;
     
-    }
+
    
     
     
