@@ -12,3 +12,5 @@ A decentralized platform to enchance labourers(migrant workers) using blockchain
 ### Dependencies
 [web3js](https://github.com/ethereum/web3.js), [solidity](https://github.com/ethereum/solidity), [testrpc](https://github.com/trufflesuite/ganache-cli), [nodejs](https://nodejs.org/en), [express](https://expressjs.com)
 [express-handlebar](https://github.com/ericf/express-handlebars), [http-proxy](https://github.com/nodejitsu/node-http-proxy), [jQuery](https://jquery.com)
+### Working
+- Smart contracts programmed in solidity deployed in testrpc interfaced with web3js (testrpc is used only for testing purpose)
