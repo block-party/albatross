@@ -25,9 +25,8 @@ if(!e) {
   } else {
     console.log("Contract mined! Address: " + contract.address);
     empc = Employmentcontract.at(contract.address)
-   empc.createWorker("chris","isris","fig",0,{from:web3.eth.accounts[0], gas: 500000})
+   //empc.createWorker("chris","isris","fig",0,{from:web3.eth.accounts[0], gas: 500000})
     
-
    
 
   }

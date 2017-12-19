@@ -2,16 +2,16 @@ pragma solidity ^0.4.18;
 
 contract UserContract 
 {
-    struct project
+    struct Project
     {
-        uint128 proj_id;
+        uint proj_id;
         string proj_name;
         string proj_desc;
-        uint32 star_date;
-        uint32 end_date;
-        uint32 start_time;
-        uint32 end_time;
-        uint32 wage;
+        string start_date;
+        string end_date;
+        string start_time;
+        string end_time;
+        uint wage;
     }
    struct User
    {
@@ -20,14 +20,14 @@ contract UserContract
         string password;
         string iris;
         string fingerprint;
-        uint verified;
-        project[] p1;
-        project[] p2;
+        bool verified;
+        Project[] p1;
+        Project[] p2;
     }
     
     User[] public users;
     
-    function createUser (string name, uint userid, string iris, string fingerprint,uint verified) public
+    function createUser (string name, uint userid, string iris, string fingerprint,bool verified) public
     {   
         users.length++;
         users[users.length-1].name = name;
@@ -40,7 +40,7 @@ contract UserContract
     
     function loginUser(uint userid,string password) constant public returns (bool s)
     {
-       int id = getUserById(userid);
+       int id = getUserIndexById(userid);
        
         if (id == -1)
             return false;
@@ -48,14 +48,44 @@ contract UserContract
             return true;
         
     }
-    function updateUserproject1()
+    
+    function updateUserproject1(uint userid,uint proj_id,string proj_name,string proj_desc,string start_date,string end_date,string start_time,string end_time,uint wage) public returns (bool s)
     {
+        int id = getUserIndexById(userid);
+        if (id == -1)
+            return false;
+        else
+            {
+                users[uint(id)].p1.push(Project(proj_id,proj_name,proj_desc,start_date,end_date,start_time,end_time,wage));
+            }
         
     }
     
-    function updateUserproject2()
+    /*
+    function viewUserproject1(uint userid) public constant returns(Project proj)
     {
+        int id = getUserIndexById(userid);
+        id = uint(id);
+        proj = users[id].p1;
         
+    }
+    */
+    
+    function updateUserproject2(uint userid,uint proj_id,string proj_name,string proj_desc,string start_date,string end_date,string start_time,string end_time,uint wage) public returns (bool s)
+    {
+        int id = getUserIndexById(userid);
+        if (id == -1)
+            return false;
+        else
+            {
+                users[uint(id)].p2.push(Project(proj_id,proj_name,proj_desc,start_date,end_date,start_time,end_time,wage));
+            }
+        
+    }
+    
+    function userStatus(uint index,bool status) 
+    {
+        users[index].verified = status;
     }
     
     function getUserCount() public constant returns (uint)
@@ -63,16 +93,15 @@ contract UserContract
         return users.length;
     }
     
-    function getUser(uint index)  constant returns (string iris_, string name, uint dateOfBirth, uint social, uint status)
+    function getUser(uint userid)  constant returns (string iris_, string name_)
     {
-    
-        iris_ = users[index].iris;
-        name = users[index].name;
         
+        int id = getUserIndexById(userid);
 
     }
     
-    function getUserById(uint userid)  constant returns (int _i)
+    
+    function getUserIndexById(uint userid)  constant returns (int _i)
     {
         for (var i=0; i<users.length; i++)
         {
@@ -86,8 +115,6 @@ contract UserContract
         return (-1);
 
     }
-    
-
    
     
     
